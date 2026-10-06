@@ -27,6 +27,8 @@ CONSTANT: alphabet
     [ length 1 - ] bi
     head ;
 
+: base64> ( str -- bytes ) 4 group [ decode-group ] map B{ } concat-as ;
+
 : main ( -- ) "README" encode-file ;
 
 MAIN: main
