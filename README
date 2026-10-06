@@ -1,0 +1,7 @@
+factor-base64
+=============
+
+Base64 encoder and decoder for files.
+
+* encodes any file to base64 on stdout
+* decodes base64 back to the original bytes
