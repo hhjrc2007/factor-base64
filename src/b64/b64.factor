@@ -9,4 +9,6 @@ CONSTANT: alphabet
 : 6bit>ch ( n -- ch ) alphabet nth ;
 : main ( -- ) "hello from b64" print ;
 
+: n>6bits ( n -- seq ) { -18 -12 -6 0 } [ shift 63 bitand ] with map ;
+
 MAIN: main
