@@ -11,4 +11,9 @@ CONSTANT: alphabet
 
 : n>6bits ( n -- seq ) { -18 -12 -6 0 } [ shift 63 bitand ] with map ;
 
+: encode-group ( bytes -- str )
+    [ 3 0 pad-tail bytes>n n>6bits [ 6bit>ch ] "" map-as  ]
+    [ length 1 + ] bi
+    head 4 CHAR: = pad-tail ;
+
 MAIN: main
