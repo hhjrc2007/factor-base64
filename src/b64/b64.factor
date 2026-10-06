@@ -15,6 +15,10 @@ CONSTANT: alphabet
 
 : >base64 ( bytes -- str ) 3 group [ encode-group ] map "" concat-as ;
 : encode-file ( path -- ) binary file-contents >base64 print ;
+
+: ch>6bit ( ch -- n ) alphabet index ;
+: 6bits>n ( seq -- n ) 0 [ swap 6 shift bitor ] reduce ;
+
 : main ( -- ) "README" encode-file ;
 
 MAIN: main
