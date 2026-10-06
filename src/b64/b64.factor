@@ -1,4 +1,4 @@
-USING: grouping io io.encodings.binary io.files kernel math sequences ;
+USING: grouping io io.encodings io.encodings.binary io.encodings.utf8 io.files kernel math namespaces sequences unicode ;
 IN: b64
 
 CONSTANT: alphabet
@@ -28,6 +28,10 @@ CONSTANT: alphabet
     head ;
 
 : base64> ( str -- bytes ) 4 group [ decode-group ] map B{ } concat-as ;
+
+: decode-file ( path -- )
+    utf8 file-contents [ blank? ] reject base64>
+    [ binary encode-output write ] with-scope ;
 
 : main ( -- ) "README" encode-file ;
 
