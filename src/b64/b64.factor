@@ -19,6 +19,14 @@ CONSTANT: alphabet
 : ch>6bit ( ch -- n ) alphabet index ;
 : 6bits>n ( seq -- n ) 0 [ swap 6 shift bitor ] reduce ;
 
+: n>bytes ( n -- bytes ) { -16 -8 0 } [ shift 255 bitand ] with B{ } map-as ;
+
+: decode-group ( str -- bytes )
+    [ CHAR: = = ] trim-tail
+    [ 4 CHAR: A pad-tail [ ch>6bit ] { } map-as 6bits>n n>bytes ]
+    [ length 1 - ] bi
+    head ;
+
 : main ( -- ) "README" encode-file ;
 
 MAIN: main
