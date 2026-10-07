@@ -1,4 +1,6 @@
-USING: grouping io io.encodings io.encodings.binary io.encodings.utf8 io.files kernel math namespaces sequences unicode ;
+USING: combinators command-line grouping io io.encodings
+io.encodings.binary io.encodings.utf8 io.files kernel math
+namespaces sequences unicode ;
 IN: b64
 
 CONSTANT: alphabet
@@ -33,6 +35,10 @@ CONSTANT: alphabet
     utf8 file-contents [ blank? ] reject base64>
     [ binary encode-output write ] with-scope ;
 
-: main ( -- ) "README" encode-file ;
+: main ( -- )
+    command-line get first2 swap {
+        { "encode" [ encode-file ] }
+        { "decode" [ decode-file ] }
+    } case ;
 
 MAIN: main
