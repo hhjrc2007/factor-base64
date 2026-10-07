@@ -35,10 +35,15 @@ CONSTANT: alphabet
     utf8 file-contents [ blank? ] reject base64>
     [ binary encode-output write ] with-scope ;
 
+: usage ( -- ) "usage: b64 encode|decode FILE" print ;
+
 : main ( -- )
-    command-line get first2 swap {
-        { "encode" [ encode-file ] }
-        { "decode" [ decode-file ] }
-    } case ;
+    command-line get dup length 2 = [
+        first2 swap {
+            { "encode" [ encode-file ] }
+            { "decode" [ decode-file ] }
+            [ 2drop usage ]
+        } case
+    ] [ drop usage ] if ;
 
 MAIN: main
