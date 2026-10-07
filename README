@@ -3,30 +3,34 @@ factor-base64
 
 Base64 encoder and decoder for files, written in Factor.
 
-Work in progress: it encodes files and byte arrays, but does not
-decode yet.
-
-* encodes any sequence of bytes to base64
+* encodes any file to base64
+* decodes base64 back to the original bytes
 * pads the last group with =
 * output is a single line, no wrapping
+* whitespace in the input is ignored when decoding
 
 Usage
 -----
 
-Run it from the repository root (encodes this README for now):
+Run it from the repository root:
 
-	factor -roots=src -run=b64
+	factor -roots=src -run=b64 encode|decode <file>
 
-Start the listener to encode something else:
+Encode a file and save the result:
 
-	factor -roots=src
+	factor -roots=src -run=b64 encode hello.txt > hello.b64
 
-Encode a string or a file:
+Decode it back:
 
-	USE: b64
-	"hello" >base64 print
-	"LICENSE" encode-file
+	factor -roots=src -run=b64 decode hello.b64
 
 Example output:
 
-	aGVsbG8=
+	aGVsbG8K
+	hello
+
+Use the words from the listener:
+
+	USE: b64
+	"hello" >base64 print
+	"aGVsbG8=" base64> .
